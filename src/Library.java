@@ -1,25 +1,41 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-public class Library {
-    private final List<Book> books = new ArrayList<>();
+public class Library implements Serializable {
+    private String city;
+    private String name;
 
-    public void addBook(Book book) {
-        books.add(book);
+    public Library(String city, String name) {
+        setCity(city);
+        setName(name);
     }
 
-    public void removeBook(Book book) {
-        if(books.contains(book)) {
-            books.remove(book);
-            System.out.println("Book removed successfully");
-        } else {
-            System.out.println("Book not found, please check the title");
+    public void setCity(String city) {
+        if(city == null || city.isBlank()){
+            throw new IllegalArgumentException("City cannot be null or blank");
         }
+        this.city = city;
     }
 
-    public void printBooks() {
-        for(Book book : books) {
-            System.out.println("Title: " + book.getTitle() + " ID: " + book.getId());
+    public void setName(String name) {
+        if(name == null || name.isBlank()){
+            throw new IllegalArgumentException("Name cannot be null or blank");
         }
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "city='" + city + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

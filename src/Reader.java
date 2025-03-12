@@ -1,66 +1,90 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Reader extends Person {
-    private static int ID = 0;
-    private String username;
-    private static int averageReadingTime = 0;
-    private int readingTime;
-    private static final List<Reader> readers = new ArrayList<>();
 
-    public Reader(String name, String username) {
-        super(name);
-        setUsername(username);
-        ID++;
-        addReader(this);
-    }
+    private static int avergageBooksReadYearly = 7;
+    private int booksReadYearly;
+    private Library library;
 
-    private static void addReader(Reader reader) {
-        readers.add(reader);
-    }
-
-    public static void showReaders() {
-        for(Reader reader : readers) {
-            System.out.println("Username: " + reader.getUsername() + " ID: " + reader.getID());
+    public Reader(String name, String surname, int booksReadYearly, Library library) {
+        super(name, surname);
+        try {
+            setBooksReadYearly(booksReadYearly);
+            setLibrary(library);
+        } catch (Exception e) {
+            e.printStackTrace();
+            removeFromExtent();
         }
     }
 
-    public static int getID() {
-        return ID;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public int getReadingTime() {
-        return readingTime;
-    }
-
-    public void setUsername(String username) {
-        if(username == null || username.isBlank()) {
-            throw new IllegalArgumentException("Username cannot be empty");
+    public void setLibrary(Library library) {
+        if(library == null) {
+            throw new IllegalArgumentException("Library cannot be null");
         }
-        this.username = username;
+        this.library = library;
     }
 
-    public static int getAverageReadingTime() {
-        return averageReadingTime;
+    public Library getLibrary() {
+        return library;
     }
 
-    public void readBack(String tmp) {
-        System.out.println("You can read now " + tmp);
+    public int getBooksReadDifferenceFromAvergage() {
+        return booksReadYearly - avergageBooksReadYearly;
     }
 
-    public void startReadingFor(int minutes) {
-        if(minutes < 0) {
-            throw new IllegalArgumentException("Reading time must be positive");
+    public static int getAvergageBooksReadYearly() {
+        return avergageBooksReadYearly;
+    }
+
+    public static void setAvergageBooksReadYearly(int avergageBooksReadYearly) {
+        if(avergageBooksReadYearly < 0) {
+            throw new IllegalArgumentException("Average books read yearly cannot be negative");
         }
-        readingTime += minutes;
-        int totalReadingTime = 0;
-        for(Reader reader : readers) {
-            totalReadingTime += reader.getReadingTime();
+        Reader.avergageBooksReadYearly = avergageBooksReadYearly;
+    }
+
+    public void tryToRead(Book book) {
+        if(book == null) {
+            throw new IllegalArgumentException("Book cannot be null");
         }
-        averageReadingTime = totalReadingTime / readers.size();
+        System.out.println(super.getName() +" can read " + book.getTitle());
+    }
+
+    public void didIReadEnoughBooks() {
+        if(booksReadYearly >= avergageBooksReadYearly) {
+            System.out.println("You read enough books this year");
+        } else {
+            System.out.println("You should read more books this year");
+        }
+    }
+
+    public static int getHowManyBooksHaveBeenReadByReaders() {
+        List <Reader> allReaders = ObjectPlus.getExtentFromClass(Reader.class);
+        int sum = 0;
+        for (Reader reader : allReaders) {
+            sum += reader.getBooksReadYearly();
+        }
+        return sum;
+    }
+
+    public int getBooksReadYearly() {
+        return booksReadYearly;
+    }
+
+    public void setBooksReadYearly(int booksReadYearly) {
+        if(booksReadYearly < 0) {
+            throw new IllegalArgumentException("Books read yearly cannot be negative");
+        }
+        this.booksReadYearly = booksReadYearly;
+    }
+
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "name = " + super.getName() +
+                ", surname = " + super.getSurname() +
+                ", booksReadYearly=" + booksReadYearly +
+                ", library=" + library +
+                '}';
     }
 }

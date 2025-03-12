@@ -1,36 +1,41 @@
-public class BookIssue extends Book {
-    private int issueNumber;
+import java.io.Serializable;
+
+public class BookIssue implements Serializable {
     private int volume;
+    private int id;
 
-    public BookIssue(Book book, int issueNumber, int volume) {
-        super(book.getTitle(), book.getReleaseDate(), book.getAuthor());
-        setIssueNumber(issueNumber);
+    public BookIssue(int volume, int id) {
+        setId(id);
         setVolume(volume);
-    }
-
-    public int getIssueNumber() {
-        return issueNumber;
     }
 
     public int getVolume() {
         return volume;
     }
 
-    public void setIssueNumber(int issueNumber) {
-        if(issueNumber < 0) {
-            throw new IllegalArgumentException("Issue number must be positive");
-        }
-        this.issueNumber = issueNumber;
-    }
-
     public void setVolume(int volume) {
-        if(volume < 0) {
-            throw new IllegalArgumentException("Volume must be positive");
+        if (volume < 0) {
+            throw new IllegalArgumentException("Volume cannot be negative");
         }
         this.volume = volume;
     }
 
-    public void read() {
-        System.out.println("Reading " + super.getTitle() + " book, issue number "+ issueNumber);
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("Id cannot be negative");
+        }
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "BookIssue{" +
+                "volume=" + volume +
+                ", id=" + id +
+                '}';
     }
 }
