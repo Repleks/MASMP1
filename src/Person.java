@@ -35,10 +35,6 @@ public class Person extends ObjectPlus {
         return name;
     }
 
-    public void tryToRead() {
-        System.out.println(this.name + " can't read books");
-    }
-
     @Override
     public String toString() {
         return "Person{" +

@@ -24,14 +24,18 @@ public class Main {
         Reader reader4 = new Reader("Test4", "Test4", 1, new Library("TestCity4", "TestLibraryName4"));
 
         System.out.println("Readers have read "+ Reader.getHowManyBooksHaveBeenReadByReaders() + " books this year");
+        reader1.didIReadEnoughBooks();
+        reader2.didIReadEnoughBooks();
+        reader3.didIReadEnoughBooks();
+        reader4.didIReadEnoughBooks();
+        System.out.println("Reader1 and Reader2 have read "+ Reader.getHowManyBooksHaveBeenReadByReaders(1,2) + " books this year");
         System.out.println("Reader1 books read yearly "+ reader1.getBooksReadYearly()+ " which is "+ reader1.getBooksReadDifferenceFromAvergage() + " from average");
         System.out.println("Reader2 books read yearly "+ reader2.getBooksReadYearly()+ " which is "+ reader2.getBooksReadDifferenceFromAvergage() + " from average");
         System.out.println("Reader3 books read yearly "+ reader3.getBooksReadYearly()+ " which is "+ reader3.getBooksReadDifferenceFromAvergage() + " from average");
         System.out.println("Reader4 books read yearly "+ reader4.getBooksReadYearly()+ " which is "+ reader4.getBooksReadDifferenceFromAvergage() + " from average");
 
-        Person person1 = new Person("PersonTest", "pTest");
-        person1.tryToRead();
-        reader1.tryToRead(book1);
+        reader1.tryToRead(book3);
+        reader1.tryToRead(2);
 
         try{
             ObjectPlus.saveExtent();

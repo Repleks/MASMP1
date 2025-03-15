@@ -5,16 +5,24 @@ public class Reader extends Person {
     private static int avergageBooksReadYearly = 7;
     private int booksReadYearly;
     private Library library;
+    private static int id = 1;
+    private int ID;
 
     public Reader(String name, String surname, int booksReadYearly, Library library) {
         super(name, surname);
         try {
             setBooksReadYearly(booksReadYearly);
             setLibrary(library);
+            ID = id;
+            id++;
         } catch (Exception e) {
             e.printStackTrace();
             removeFromExtent();
         }
+    }
+
+    public int getID() {
+        return ID;
     }
 
     public void setLibrary(Library library) {
@@ -50,6 +58,17 @@ public class Reader extends Person {
         System.out.println(super.getName() +" can read " + book.getTitle());
     }
 
+    public void tryToRead(int bookID) {
+        List <Book> allBooks = ObjectPlus.getExtentFromClass(Book.class);
+        for (Book book : allBooks) {
+            if(book.getId() == bookID){
+                System.out.println(super.getName() +" can read " + book.getTitle());
+                return;
+            }
+        }
+        System.out.println("Book with ID "+ bookID + " not found");
+    }
+
     public void didIReadEnoughBooks() {
         if(booksReadYearly >= avergageBooksReadYearly) {
             System.out.println("You read enough books this year");
@@ -63,6 +82,17 @@ public class Reader extends Person {
         int sum = 0;
         for (Reader reader : allReaders) {
             sum += reader.getBooksReadYearly();
+        }
+        return sum;
+    }
+
+    public static int getHowManyBooksHaveBeenReadByReaders(int idFrom, int idTo){
+        List <Reader> allReaders = ObjectPlus.getExtentFromClass(Reader.class);
+        int sum = 0;
+        for (Reader reader : allReaders) {
+            if(reader.getID() >= idFrom && reader.getID() <= idTo){
+                sum += reader.getBooksReadYearly();
+            }
         }
         return sum;
     }
@@ -81,7 +111,8 @@ public class Reader extends Person {
     @Override
     public String toString() {
         return "Reader{" +
-                "name = " + super.getName() +
+                "ID=" + ID +
+                ", name = " + super.getName() +
                 ", surname = " + super.getSurname() +
                 ", booksReadYearly=" + booksReadYearly +
                 ", library=" + library +
