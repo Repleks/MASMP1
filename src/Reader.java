@@ -21,6 +21,26 @@ public class Reader extends Person {
         }
     }
 
+    public void setName(String name) {
+        if(name == null || name.isBlank()){
+            throw new IllegalArgumentException("Name cannot be null or blank");
+        }
+        if(getName().equals(name)){
+            throw new IllegalArgumentException("Name is the same as the current one");
+        }
+        super.setName(name);
+    }
+
+    public void setSurname(String surname) {
+        if(surname == null || surname.isBlank()){
+            throw new IllegalArgumentException("Surname cannot be null or blank");
+        }
+        if(getSurname().equals(surname)){
+            throw new IllegalArgumentException("Surname is the same as the current one");
+        }
+        super.setSurname(surname);
+    }
+
     public int getID() {
         return ID;
     }
