@@ -21,22 +21,23 @@ public class Reader extends Person {
         }
     }
 
+    @Override
     public void setName(String name) {
         if(name == null || name.isBlank()){
             throw new IllegalArgumentException("Name cannot be null or blank");
-        }
-        if(getName().equals(name)){
-            throw new IllegalArgumentException("Name is the same as the current one");
+        } else if (name.length() < 3) {
+            throw new IllegalArgumentException("Name can't be that short");
         }
         super.setName(name);
     }
 
+    @Override
     public void setSurname(String surname) {
         if(surname == null || surname.isBlank()){
             throw new IllegalArgumentException("Surname cannot be null or blank");
         }
-        if(getSurname().equals(surname)){
-            throw new IllegalArgumentException("Surname is the same as the current one");
+        else if(surname.length() < 3) {
+            throw new IllegalArgumentException("Surname can't be that short");
         }
         super.setSurname(surname);
     }

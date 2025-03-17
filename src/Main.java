@@ -36,6 +36,17 @@ public class Main {
 
         reader1.tryToRead(book3);
         reader1.tryToRead(2);
+        try {
+            reader1.setName("ts");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(reader1.getName());
+
+        Person person1 = new Person("Test", "Test");
+        person1.setSurname("Te");
+        System.out.println(person1.getSurname());
 
         try{
             ObjectPlus.saveExtent();
